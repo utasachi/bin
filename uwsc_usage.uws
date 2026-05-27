@@ -1,0 +1,16 @@
+usage="【もちからWeb2 起動bat 事前確認】<#CR>"+ _
+"・スマホ側でテザリング<#CR>　iPhoneなら「インターネット共有」をONに<#CR>"+ _
+"・PC側でスマホのテザリングに接続<#CR>　Win+Aでアクションセンター<#CR>"+ _
+"・モバイルホットスポットをONに<#CR>　Win+Aでアクションセンター<#CR>"+ _
+"・もちからHDDをUSB接続<#CR>"+ _
+"・運営PCの電源ケーブルを接続<#CR>　カラオケ配信機にHDMIケーブルを接続<#CR>"+ _
+"・画面タイムアウトの設定オフ<#CR>"+ _
+"・カラオケのモニタをHDMI接続し「拡張」に<#CR>　Win+Pで「表示」<#CR>"+ _
+"・音声出力をHDMIor音声ケーブル接続先に設定<#CR>　Win+Ctrl+Vで「音声出力」<#CR>"+ _
+"・PCのマスタ音量を設定(80を目安に調整)<#CR>　Win+Aでアクションセンター<#CR>"
+repeat
+  ret = slctbox(SLCT_BTN,0,usage,"開始","iniファイル修正","キャンセル")
+  if ret = 2 then doscmd("notepad ..\mochikara2.ini")
+until ret <> SLCT_2
+if ret <> SLCT_1 then exitexit 1
+exitexit 0

@@ -1,0 +1,5 @@
+# gitignore
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+UWSC.exe

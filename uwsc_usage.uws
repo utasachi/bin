@@ -7,10 +7,49 @@ usage="【もちからWeb2 起動bat 事前確認】<#CR>"+ _
 "・画面タイムアウトの設定オフ<#CR>"+ _
 "・カラオケのモニタをHDMI接続し「拡張」に<#CR>　Win+Pで「表示」<#CR>"+ _
 "・音声出力をHDMIor音声ケーブル接続先に設定<#CR>　Win+Ctrl+Vで「音声出力」<#CR>"+ _
-"・PCのマスタ音量を設定(80を目安に調整)<#CR>　Win+Aでアクションセンター<#CR>"
+"・PCのマスタ音量を設定(80を目安に調整)<#CR>　Win+Aでアクションセンター<#CR><#CR>"
+drive = ""
+if fopen("D:\karaoke\",F_EXISTS) then drive = "D:"
+if fopen("E:\karaoke\",F_EXISTS) then drive = "E:"
+if fopen("F:\karaoke\",F_EXISTS) then drive = "F:"
+if fopen("G:\karaoke\",F_EXISTS) then drive = "G:"
+if fopen("H:\karaoke\",F_EXISTS) then drive = "H:"
+if fopen("I:\karaoke\",F_EXISTS) then drive = "I:"
+if drive = ""
+  msgbox("karaoke フォルダが見つかりませんでした")
+  exitexit 1
+endif
+usage = usage + drive + "ドライブで起動します<#CR>"
+
 repeat
-  ret = slctbox(SLCT_BTN,0,usage,"開始","iniファイル修正","キャンセル")
-  if ret = 2 then doscmd("notepad ..\mochikara2.ini")
-until ret <> SLCT_2
+  ret = slctbox(SLCT_BTN,0,usage,"開始","iniファイル修正","今日の持込フォルダ作成","キャンセル")
+  if ret = SLCT_2
+    if fopen("..\mochikara2.ini",F_EXISTS) = FALSE
+      msgbox("mochikara.iniがないので作成します")
+      doscmd("copy mochikara2_org.ini ..\mochikara2.ini")
+    endif
+  　doscmd("notepad ..\mochikara2.ini")
+  elseif ret = SLCT_3
+    gettime()
+    folder = drive + "\karaoke\持込\" + G_TIME_YY4 + G_TIME_MM2 + G_TIME_DD2
+    member1 = readini("mochikomi","member1","..\mochikara2.ini")
+    member2 = readini("mochikomi","member2","..\mochikara2.ini")
+    member3 = readini("mochikomi","member3","..\mochikara2.ini")
+    member4 = readini("mochikomi","member4","..\mochikara2.ini")
+    member5 = readini("mochikomi","member5","..\mochikara2.ini")
+    doscmd("mkdir <#DBL>" + folder + "<#DBL>")
+    if member1 <> "" then doscmd("mkdir <#DBL>" + folder + "\" + member1 + "<#DBL>")
+    if member2 <> "" then doscmd("mkdir <#DBL>" + folder + "\" + member2 + "<#DBL>")
+    if member3 <> "" then doscmd("mkdir <#DBL>" + folder + "\" + member3 + "<#DBL>")
+    if member4 <> "" then doscmd("mkdir <#DBL>" + folder + "\" + member4 + "<#DBL>")
+    if member5 <> "" then doscmd("mkdir <#DBL>" + folder + "\" + member5 + "<#DBL>")
+  　doscmd("explorer <#DBL>" + folder +"<#DBL>",TRUE)
+    mochilist = folder + "\mochilist_" + G_TIME_YY4 + G_TIME_MM2 + G_TIME_DD2 + ".txt"
+    if fopen(mochilist,F_EXISTS) = FALSE
+      doscmd("type nul > <#DBL>" + mochilist + "<#DBL>")
+    endif
+  　doscmd("explorer <#DBL>" + folder +"<#DBL>",TRUE)
+  endif
+until (ret <> SLCT_2) and (ret <> SLCT_3)
 if ret <> SLCT_1 then exitexit 1
 exitexit 0

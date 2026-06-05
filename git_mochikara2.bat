@@ -1,6 +1,7 @@
 chcp 65001
 rem .\bin\git_mochikara2.bat
 rem https://utasachi.github.io/
+.\bin\yt-dlp.exe
 pause "git 実行してもよろしいですか？"
 cd /d D:\karaoke\プレイリスト
 chcp 932

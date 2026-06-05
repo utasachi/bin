@@ -1,3 +1,8 @@
+// uwsc_vk.uws MPC-BEにイベント送信、簡易メッセージなども
+if PARAM_STR[0]="msg"
+  r = msgbox(PARAM_STR[1],BTN_OK or BTN_CANCEL)
+  exitexit r
+endif
 W_MPC=getid("MPC-BE x64","MPC-BE",5)
 if W_MPC=-1 then fukidasi("WindowID取得失敗,MPC-BEを起動してください")
 ctrlwin(W_MPC, ACTIVATE)

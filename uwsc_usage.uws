@@ -22,7 +22,9 @@ endif
 usage = usage + drive + "ドライブで起動します<#CR>"
 
 repeat
-  ret = slctbox(SLCT_BTN,0,usage,"開始","iniファイル修正","今日の持込フォルダ作成","キャンセル")
+  ipv4 = replace(doscmd("ipconfig|findstr <#DBL>IPv4<#DBL>")," .","")
+  msg = usage + ipv4
+  ret = slctbox(SLCT_BTN,0,msg,"開始","iniファイル修正","今日の持込フォルダ作成","キャンセル")
   if ret = SLCT_2
     if fopen("..\mochikara2.ini",F_EXISTS) = FALSE
       msgbox("mochikara.iniがないので作成します")

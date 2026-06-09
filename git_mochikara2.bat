@@ -35,4 +35,13 @@ if %errorlevel%==0 goto end4
 git commit -m "auto update"
 git push --force
 :end4
+
+cd /d C:\mochikara2\ahk\MochiutaSC
+git add . 
+git diff --cached --quiet
+if %errorlevel%==0 goto end5
+git commit -m "auto update"
+git push --force
+:end5
+
 pause

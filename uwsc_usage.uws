@@ -8,30 +8,42 @@ usage="【もちからWeb2 起動bat 事前確認】<#CR>"+ _
 "・カラオケのモニタをHDMI接続し「拡張」に<#CR>　Win+Pで「表示」<#CR>"+ _
 "・音声出力をHDMIor音声ケーブル接続先に設定<#CR>　Win+Ctrl+Vで「音声出力」<#CR>"+ _
 "・PCのマスタ音量を設定(80を目安に調整)<#CR>　Win+Aでアクションセンター<#CR><#CR>"
-drive = ""
-if fopen("D:\karaoke\",F_EXISTS) then drive = "D:"
-if fopen("E:\karaoke\",F_EXISTS) then drive = "E:"
-if fopen("F:\karaoke\",F_EXISTS) then drive = "F:"
-if fopen("G:\karaoke\",F_EXISTS) then drive = "G:"
-if fopen("H:\karaoke\",F_EXISTS) then drive = "H:"
-if fopen("I:\karaoke\",F_EXISTS) then drive = "I:"
-if drive = ""
-  msgbox("karaoke フォルダが見つかりませんでした")
-  exitexit 1
-endif
-usage = usage + drive + "ドライブで起動します<#CR>"
 
 repeat
+  msg = ""
+  drive = ""
+  if fopen("D:\karaoke\",F_EXISTS) then drive = "D:"
+  if fopen("E:\karaoke\",F_EXISTS) then drive = "E:"
+  if fopen("F:\karaoke\",F_EXISTS) then drive = "F:"
+  if fopen("G:\karaoke\",F_EXISTS) then drive = "G:"
+  if fopen("H:\karaoke\",F_EXISTS) then drive = "H:"
+  if fopen("I:\karaoke\",F_EXISTS) then drive = "I:"
+  if drive = ""
+    msg = "【ERROR】外付けHDDがありません<#CR>"
+  else
+    msg = "ドライブ " + drive + " で起動します<#CR>"
+  endif
   ipv4 = replace(doscmd("ipconfig|findstr <#DBL>IPv4<#DBL>")," .","")
-  msg = usage + ipv4
-  ret = slctbox(SLCT_BTN,0,msg,"開始","iniファイル修正","今日の持込フォルダ作成","キャンセル")
-  if ret = SLCT_2
+  msg = msg + "PCのIPアドレス<#CR>" + ipv4
+  if fopen("..\mochikara2.ini",F_EXISTS) = FALSE
+    msg = msg + "【ERROR】..\mochikara2.ini がありません<#CR>"
+  else
+    qrip = readini("wifi","ipaddr","..\mochikara2.ini")
+    msg = msg + "QRコードのIPアドレス:" + qrip + "<#CR>"
+    if pos(qrip,ipv4)=0
+      msg = msg + "【ERROR】モバイルホットスポットが有効になっていないか、QRコードの再作成が必要です<#CR>"
+    endif
+  endif
+  msg = usage + msg
+
+  ret = slctbox(SLCT_BTN,0,msg,"開始","再チェック","iniファイル修正","今日の持込フォルダ作成","キャンセル")
+  if ret = SLCT_3
     if fopen("..\mochikara2.ini",F_EXISTS) = FALSE
       msgbox("mochikara.iniがないので作成します")
       doscmd("copy mochikara2_org.ini ..\mochikara2.ini")
     endif
   　doscmd("notepad ..\mochikara2.ini")
-  elseif ret = SLCT_3
+  elseif ret = SLCT_4
     gettime()
     folder = drive + "\karaoke\持込\" + G_TIME_YY4 + G_TIME_MM2 + G_TIME_DD2
     member1 = readini("mochikomi","member1","..\mochikara2.ini")
@@ -52,6 +64,6 @@ repeat
     endif
   　doscmd("explorer <#DBL>" + folder +"<#DBL>",TRUE)
   endif
-until (ret <> SLCT_2) and (ret <> SLCT_3)
+until (ret <> SLCT_2) and (ret <> SLCT_3) and (ret <> SLCT_4)
 if ret <> SLCT_1 then exitexit 1
 exitexit 0

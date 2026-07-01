@@ -1,7 +1,7 @@
 #!c:/mochikara2/.venv/Scripts/pythonw.exe
 # -*- coding: utf-8 -*-
 # pip install qrcode pillow
-import subprocess, shutil, qrcode, time
+import subprocess, shutil, qrcode, time, os
 from configparser import ConfigParser
 from pathlib import Path
 
@@ -54,9 +54,9 @@ l4 = config.get("topic", "2", fallback="")
 shutil.copyfile('../htdocs/startmv_org.ass', '../htdocs/startmv.ass')
 l1 = l2 = ""
 if ssid and passwd and ipaddr:
-    if makeqr == "yes":
-        qrcode.make(f"WIFI:T:WPA;S:{ssid};P:{passwd};;",box_size=5,border=2).save("../tmp/qr_wifi.png")
-        qrcode.make(f"http://{ipaddr}/",box_size=6,border=2).save("../tmp/qr_url.png")
+    if makeqr == "yes" or not os.path.exists(overlay_png1) or not os.path.exists(overlay_png2):
+        qrcode.make(f"WIFI:T:WPA;S:{ssid};P:{passwd};;",box_size=5,border=2).save(overlay_png1)
+        qrcode.make(f"http://{ipaddr}/",box_size=6,border=2).save(overlay_png2)
         cmd = [ "ffmpeg", "-y",
                 "-i", input_video,
                 "-i", overlay_png1,

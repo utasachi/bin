@@ -43,5 +43,5 @@ if %errorlevel%==0 goto end5
 git commit -m "auto update"
 git push --force
 :end5
-"C:\mochikara2\bin\Sync_mochikara2→OneDrive.ffs_gui"
+"C:\mochikara2\bin\Sync_mochikara2OneDrive.ffs_gui"
 pause

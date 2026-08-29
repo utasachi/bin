@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FreeFileSync XmlType="GUI" XmlFormat="23">
+    <Notes/>
+    <Compare>
+        <Variant>TimeAndSize</Variant>
+        <Symlinks>Exclude</Symlinks>
+        <IgnoreTimeShift/>
+    </Compare>
+    <Synchronize>
+        <Differences LeftOnly="right" LeftNewer="right" RightNewer="right" RightOnly="right"/>
+        <DeletionPolicy>RecycleBin</DeletionPolicy>
+        <VersioningFolder Style="Replace"/>
+    </Synchronize>
+    <Filter>
+        <Include>
+            <Item>*</Item>
+        </Include>
+        <Exclude>
+            <Item>\System Volume Information\</Item>
+            <Item>\$Recycle.Bin\</Item>
+            <Item>\RECYCLE?\</Item>
+            <Item>\Recovery\</Item>
+            <Item>*\thumbs.db</Item>
+            <Item>*\__pycache__\*</Item>
+            <Item>*\~\*</Item>
+            <Item>*\_bak\*</Item>
+            <Item>*\tmp\*</Item>
+            <Item>*\.git\*</Item>
+            <Item>%SystemDrive%\*</Item>
+        </Exclude>
+        <SizeMin Unit="None">0</SizeMin>
+        <SizeMax Unit="None">0</SizeMax>
+        <TimeSpan Type="None">0</TimeSpan>
+    </Filter>
+    <FolderPairs>
+        <Pair>
+            <Left>C:\mochikara2\Software</Left>
+            <Right>C:\Users\a12awa\OneDrive\mochikara2\Software</Right>
+        </Pair>
+        <Pair>
+            <Left>C:\mochikara2\htdocs</Left>
+            <Right>C:\Users\a12awa\OneDrive\mochikara2\htdocs</Right>
+        </Pair>
+        <Pair>
+            <Left>C:\mochikara2\ahk</Left>
+            <Right>C:\Users\a12awa\OneDrive\mochikara2\ahk</Right>
+        </Pair>
+        <Pair>
+            <Left>C:\mochikara2\cgi-bin</Left>
+            <Right>C:\Users\a12awa\OneDrive\mochikara2\cgi-bin</Right>
+        </Pair>
+        <Pair>
+            <Left>C:\mochikara2\bin</Left>
+            <Right>C:\Users\a12awa\OneDrive\mochikara2\bin</Right>
+        </Pair>
+    </FolderPairs>
+    <Errors Ignore="false" Retry="0" Delay="5"/>
+    <PostSyncCommand Condition="Completion"/>
+    <LogFolder/>
+    <EmailNotification Condition="Always"/>
+    <GridViewType>Action</GridViewType>
+</FreeFileSync>

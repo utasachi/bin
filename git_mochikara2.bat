@@ -1,9 +1,12 @@
 chcp 65001
 rem .\bin\git_mochikara2.bat
 rem https://utasachi.github.io/
+cd /d C:\mochikara2
 bin\yt-dlp.exe -U
 ahk\MochiutaSC\bin\yt-dlp.exe -U
 "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in "ahk\MochiutaSC\MochiutaSC.ahk" /out "ahk\MochiutaSC\MochiutaSC.exe"
+"C:\mochikara2\bin\Sync_mochikara2OneDrive.ffs_gui"
+"C:\mochikara2\bin\Sync_mochikara2D.ffs_gui"
 
 pause "git 実行してもよろしいですか？"
 cd /d D:\karaoke\プレイリスト
@@ -46,5 +49,4 @@ if %errorlevel%==0 goto end5
 git commit -m "auto update"
 git push --force
 :end5
-"C:\mochikara2\bin\Sync_mochikara2OneDrive.ffs_gui"
 pause

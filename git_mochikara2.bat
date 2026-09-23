@@ -1,7 +1,10 @@
 chcp 65001
 rem .\bin\git_mochikara2.bat
 rem https://utasachi.github.io/
-.\bin\yt-dlp.exe -U
+bin\yt-dlp.exe -U
+ahk\MochiutaSC\bin\yt-dlp.exe -U
+"C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in "ahk\MochiutaSC\MochiutaSC.ahk" /out "ahk\MochiutaSC\MochiutaSC.exe"
+
 pause "git 実行してもよろしいですか？"
 cd /d D:\karaoke\プレイリスト
 chcp 932
